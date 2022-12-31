@@ -27,7 +27,7 @@ public class SudoCommand implements Command{
                 command = args[0];
             }
             Bukkit.getLogger().info(String.format("User %s use command %s",event.getSender().getId(),command));
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),command);
+            Bukkit.getScheduler().runTask(Utils.getPlugin(),()-> Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),command));
         }else{
             target.sendMessage("No permission to use this command");
         }

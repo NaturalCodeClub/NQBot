@@ -35,7 +35,7 @@ public class CommandProcessor {
             if (currentListener.get()!=event.getBot()){
                 return;
             }
-            logger.info(String.format("[Chat][%s][%s(%s)]%s",event.getGroup().getName(),event.getSender().getNick(),event.getSender().getId(),event.getMessage()));
+            //logger.info(String.format("[Chat][%s][%s(%s)]%s",event.getGroup().getName(),event.getSender().getNick(),event.getSender().getId(),event.getMessage()));
             fireProcessMessage(event);
         });
     }
