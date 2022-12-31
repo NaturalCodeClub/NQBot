@@ -36,6 +36,12 @@ public class JavaScriptCommandManager {
         }
     }
 
+    public static synchronized void unloadAllCommands(){
+        registedJSCommands.clear();
+        loadedScripts.clear();
+        currentScriptDir = null;
+    }
+
     public static synchronized Set<Command> getRegistedJSCommands(){
         return registedJSCommands;
     }

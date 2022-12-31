@@ -31,6 +31,16 @@ public class BotManager {
     public static final Logger LOGGER = Bukkit.getLogger();
     public static final MessageManager multiSender= new MessageManager();
 
+    public static void shutdown(){
+        for (Bot bot : bots){
+            bot.close();
+        }
+        bots.clear();
+        entries.clear();
+        botEntries.clear();
+        multiSender.shutdown();
+    }
+
     public static void init(){
         try {
             final File configFolder = new File(Utils.getDataFolder(),"configs");
