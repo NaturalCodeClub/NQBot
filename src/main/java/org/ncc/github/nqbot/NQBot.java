@@ -33,6 +33,7 @@ public final class NQBot extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        BotDataManager.saveCurrent();
         BotManager.shutdown();
         JavaScriptCommandManager.unloadAllCommands();
     }
