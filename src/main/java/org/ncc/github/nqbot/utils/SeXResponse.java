@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class SeXResponse {
     private static final Logger logger = Bukkit.getLogger();
-    private static final String API_URL = "https://api.lolicon.app/setu/v2";
+    private static final String API_URL = "https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat";
     private static final Gson gson = new Gson();
 
     private static final AtomicInteger threadId = new AtomicInteger();
