@@ -6,7 +6,6 @@ import org.ncc.github.nqbot.manager.BotDataManager;
 import org.ncc.github.nqbot.manager.BotManager;
 import org.ncc.github.nqbot.manager.ConfigManager;
 import org.ncc.github.nqbot.manager.JavaScriptCommandManager;
-import org.ncc.github.nqbot.utils.SeXResponse;
 import org.ncc.github.nqbot.utils.Utils;
 
 import java.io.File;
@@ -17,11 +16,6 @@ public final class NQBot extends JavaPlugin {
     public void onEnable() {
         Utils.init(this);
         BotDataManager.init();
-        if (SeXResponse.URLs.getCache().exists()){
-            for (File file : SeXResponse.URLs.getCache().listFiles()){
-                file.delete();
-            }
-        }
         File jsDir = new File(Utils.getDataFolder(),"commands");
         if (!jsDir.exists()){
             jsDir.mkdir();
