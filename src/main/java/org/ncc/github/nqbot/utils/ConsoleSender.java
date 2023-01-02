@@ -58,7 +58,7 @@ public class ConsoleSender implements ConsoleCommandSender {
         synchronized (tempOutPut) {
             tempOutPut.add(message);
         }
-        task = Bukkit.getScheduler().runTaskLaterAsynchronously(Utils.getPlugin(), () -> {
+        task = Bukkit.getScheduler().runTaskLaterAsynchronously(CoreUtils.getPlugin(), () -> {
             synchronized (output) {
                 synchronized (tempOutPut) {
                     output.addAll(tempOutPut);

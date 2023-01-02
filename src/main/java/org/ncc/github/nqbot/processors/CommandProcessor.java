@@ -4,10 +4,10 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.data.MessageChain;
 import org.bukkit.Bukkit;
-import org.ncc.github.nqbot.commands.Command;
+import org.ncc.github.nqbot.commands.GroupCommand;
 import org.ncc.github.nqbot.manager.CommandManager;
 import org.ncc.github.nqbot.manager.ConfigManager;
-import org.ncc.github.nqbot.manager.JavaScriptCommandManager;
+import org.ncc.github.nqbot.jssupport.JavaScriptCommandLoader;
 
 import java.util.Arrays;
 import java.util.concurrent.Executor;
@@ -16,6 +16,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
+/**
+ * 用于处理所有已经捕获到的命令，所有的命令都是异步处理的
+ * 所以请注意线程安全:)
+ */
 public class CommandProcessor {
     private static final Logger logger = Bukkit.getLogger();
     private static final AtomicReference<Bot> currentListener = new AtomicReference<>();
@@ -27,6 +31,10 @@ public class CommandProcessor {
         return worker;
     });
 
+    /**
+     * 异步处理一个群消息事件
+     * @param event 事件
+     */
     public static void processAsync(GroupMessageEvent event){
         processor.execute(()->{
             if (currentListener.get()==null || !currentListener.get().isOnline()){
@@ -35,11 +43,14 @@ public class CommandProcessor {
             if (currentListener.get()!=event.getBot()){
                 return;
             }
-            //logger.info(String.format("[Chat][%s][%s(%s)]%s",event.getGroup().getName(),event.getSender().getNick(),event.getSender().getId(),event.getMessage()));
             fireProcessMessage(event);
         });
     }
 
+    /**
+     * 事件会在这里判断是不是命令并进一步处理
+     * @param event
+     */
     private static void fireProcessMessage(GroupMessageEvent event){
         final MessageChain message = event.getMessage();
         final String messageString = message.get(1).contentToString();
@@ -50,21 +61,28 @@ public class CommandProcessor {
             final String[] args = new String[fixed.length-1];
             System.arraycopy(fixed, 1, args, 0, fixed.length - 1);
             if (commandHead.startsWith("#") && commandHead.length() > 1){
-                for (Command command : CommandManager.registedSystemCommands){
-                    checkAndCall(command,commandHead,event,args);
+                for (GroupCommand groupCommand : CommandManager.REGISTED_GROUP_COMMANDS){
+                    checkAndCall(groupCommand,commandHead,event,args);
                 }
-                for (Command jsCommand : JavaScriptCommandManager.getRegistedJSCommands()){
-                    checkAndCall(jsCommand,commandHead,event,args);
+                for (GroupCommand jsGroupCommand : JavaScriptCommandLoader.getRegistedJSCommands()){
+                    checkAndCall(jsGroupCommand,commandHead,event,args);
                 }
             }
         }
     }
 
-    private static void checkAndCall(Command command,String commandHead,GroupMessageEvent event,String[] args){
-        if (command.getHead().equals(commandHead.substring(1)) && event.getGroup().getId() == ConfigManager.CONFIG_FILE_READ.getListeningGroup()){
-            logger.info(String.format("Command caught:%s Args:%s",command.getHead(), Arrays.toString(args)));
+    /**
+     * 检查并调用指定的命令
+     * @param groupCommand 命令的实例
+     * @param commandHead 命令头，用于检索
+     * @param event 当前事件
+     * @param args 后缀
+     */
+    private static void checkAndCall(GroupCommand groupCommand, String commandHead, GroupMessageEvent event, String[] args){
+        if (groupCommand.getHead().equals(commandHead.substring(1)) && event.getGroup().getId() == ConfigManager.CONFIG_FILE_READ.getListeningGroup()){
+            logger.info(String.format("Command caught:%s Args:%s", groupCommand.getHead(), Arrays.toString(args)));
             try{
-                command.process(args,event.getBot(),event.getGroup(),event);
+                groupCommand.process(args,event.getBot(),event.getGroup(),event);
             }catch (Exception e){
                 event.getGroup().sendMessage("Error in processing message!");
                 event.getGroup().sendMessage(e.getMessage());
