@@ -3,6 +3,7 @@ package org.ncc.github.nqbot.manager;
 import org.bukkit.Bukkit;
 import org.ncc.github.nqbot.data.ConfigFile;
 import org.ncc.github.nqbot.utils.CoreUtils;
+
 import java.io.File;
 import java.util.logging.Logger;
 

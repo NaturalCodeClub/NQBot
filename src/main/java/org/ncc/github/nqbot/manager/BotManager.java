@@ -5,13 +5,14 @@ import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
+import org.ncc.github.nqbot.bot.BotEntry;
 import org.ncc.github.nqbot.data.BotConfigEntry;
 import org.ncc.github.nqbot.data.BotConfigEntryArray;
-import org.ncc.github.nqbot.bot.BotEntry;
 import org.ncc.github.nqbot.eventsystem.EventHub;
 import org.ncc.github.nqbot.processors.CommandProcessor;
 import org.ncc.github.nqbot.utils.CoreUtils;
 import org.ncc.github.nqbot.utils.bot.MultiMessageSender;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class BotManager {
                                         CommandProcessor.processGroupCommandAsync(((GroupMessageEvent) event));
                                     }
                                     if (event instanceof FriendMessageEvent){
-                                        CommandProcessor.processPrivateCommandAysnc(((FriendMessageEvent) event));
+                                        CommandProcessor.processPrivateCommandAsync(((FriendMessageEvent) event));
                                     }
                                 }
                             };

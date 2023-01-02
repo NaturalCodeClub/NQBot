@@ -6,6 +6,7 @@ import net.mamoe.mirai.message.data.MessageContent;
 import org.bukkit.Bukkit;
 import org.ncc.github.nqbot.bot.BotEntry;
 import org.ncc.github.nqbot.utils.CoreUtils;
+
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;

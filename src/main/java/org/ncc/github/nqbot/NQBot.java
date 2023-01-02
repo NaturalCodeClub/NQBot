@@ -1,10 +1,10 @@
 package org.ncc.github.nqbot;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.manager.BotDataManager;
 import org.ncc.github.nqbot.manager.BotManager;
 import org.ncc.github.nqbot.manager.ConfigManager;
-import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.utils.CoreUtils;
 
 import java.io.File;
