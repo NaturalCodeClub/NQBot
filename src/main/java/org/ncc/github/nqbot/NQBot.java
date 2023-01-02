@@ -1,6 +1,5 @@
 package org.ncc.github.nqbot;
 
-import net.mamoe.mirai.Bot;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ncc.github.nqbot.manager.BotDataManager;
 import org.ncc.github.nqbot.manager.BotManager;

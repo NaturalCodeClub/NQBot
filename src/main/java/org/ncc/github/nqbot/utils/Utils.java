@@ -4,6 +4,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -15,6 +16,8 @@ public class Utils {
     private static final Logger logger = Bukkit.getLogger();
     private static Plugin pluginEntry;
     private static File dataFolder;
+    public static final String version = "";
+    public static final String author = "Novau2333,NaT_Jerry";
 
     public static ByteArrayInputStream readInputStream(InputStream inputStream) throws IOException {
         byte[] buffer = new byte['Ѐ'];

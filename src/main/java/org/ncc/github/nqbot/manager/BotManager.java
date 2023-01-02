@@ -11,6 +11,7 @@ import org.ncc.github.nqbot.bot.BotEntry;
 import org.ncc.github.nqbot.eventsystem.EventHub;
 import org.ncc.github.nqbot.processors.CommandProcessor;
 import org.ncc.github.nqbot.utils.Utils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

@@ -4,6 +4,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageContent;
 import org.ncc.github.nqbot.bot.BotEntry;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
