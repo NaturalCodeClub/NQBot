@@ -1,9 +1,8 @@
-package org.ncc.github.nqbot.commands;
+package org.ncc.github.nqbot.commands.group;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
-import org.ncc.github.nqbot.commands.GroupCommand;
 
 import javax.script.Invocable;
 import javax.script.ScriptException;

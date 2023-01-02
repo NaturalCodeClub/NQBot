@@ -1,4 +1,4 @@
-package org.ncc.github.nqbot.commands;
+package org.ncc.github.nqbot.commands.group;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;

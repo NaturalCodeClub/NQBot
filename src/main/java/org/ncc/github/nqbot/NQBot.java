@@ -4,7 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.ncc.github.nqbot.manager.BotDataManager;
 import org.ncc.github.nqbot.manager.BotManager;
 import org.ncc.github.nqbot.manager.ConfigManager;
-import org.ncc.github.nqbot.jssupport.JavaScriptCommandLoader;
+import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.utils.CoreUtils;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public final class NQBot extends JavaPlugin {
         if (!jsDir.exists()){
             jsDir.mkdir();
         }
-        JavaScriptCommandLoader.loadAll(jsDir);
+        JavaScriptGroupCommandLoader.loadAll(jsDir);
         ConfigManager.init();
         BotManager.init();
     }
@@ -30,6 +30,6 @@ public final class NQBot extends JavaPlugin {
     public void onDisable() {
         BotDataManager.saveCurrent();
         BotManager.shutdown();
-        JavaScriptCommandLoader.unloadAllCommands();
+        JavaScriptGroupCommandLoader.unloadAllCommands();
     }
 }

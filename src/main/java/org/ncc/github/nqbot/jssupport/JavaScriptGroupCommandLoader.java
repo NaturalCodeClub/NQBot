@@ -1,8 +1,8 @@
 package org.ncc.github.nqbot.jssupport;
 
 import org.bukkit.Bukkit;
-import org.ncc.github.nqbot.commands.GroupCommand;
-import org.ncc.github.nqbot.commands.JavaScriptGroupCommand;
+import org.ncc.github.nqbot.commands.group.GroupCommand;
+import org.ncc.github.nqbot.commands.group.JavaScriptGroupCommand;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * JS命令加载器
  */
-public class JavaScriptCommandLoader {
+public class JavaScriptGroupCommandLoader {
     private static final Set<GroupCommand> REGISTED_JS_GROUP_COMMANDS = ConcurrentHashMap.newKeySet();
     private static final Logger logger = Bukkit.getLogger();
     private static File currentScriptDir;
