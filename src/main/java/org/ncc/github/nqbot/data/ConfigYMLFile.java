@@ -2,6 +2,7 @@ package org.ncc.github.nqbot.data;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class ConfigYMLFile {
                 }
             }
         }
+        configYML = YamlConfiguration.loadConfiguration(file);
         boolean b = configYML.get("config.botmaster")==null;
         if(b){
             configYML.set("config.botmaster",BotMasterID);
