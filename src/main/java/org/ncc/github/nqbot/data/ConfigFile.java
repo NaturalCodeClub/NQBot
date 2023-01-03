@@ -34,8 +34,8 @@ public class ConfigFile {
     }
 
     /**
-     * 获取主人的ID
-     * @return 主人的ID
+     * 获取该群群主的QQ号
+     * @return 群主的QQ号
      */
     public long getMasterName() {
         return masterName;

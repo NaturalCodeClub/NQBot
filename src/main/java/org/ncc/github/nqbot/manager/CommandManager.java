@@ -1,12 +1,12 @@
 package org.ncc.github.nqbot.manager;
 
+import org.ncc.github.nqbot.commands.friend.FriendCommand;
 import org.ncc.github.nqbot.commands.friend.ReloadFriendCommand;
 import org.ncc.github.nqbot.commands.friend.SudoFriendCommand;
 import org.ncc.github.nqbot.commands.group.GroupCommand;
 import org.ncc.github.nqbot.commands.group.ReloadGroupCommand;
 import org.ncc.github.nqbot.commands.group.SudoGroupCommand;
 import org.ncc.github.nqbot.commands.tempchat.GroupTempCommand;
-import org.ncc.github.nqbot.commands.friend.FriendCommand;
 import org.ncc.github.nqbot.commands.tempchat.ReloadTempChatCommand;
 import org.ncc.github.nqbot.commands.tempchat.SudoTempChatCommand;
 
