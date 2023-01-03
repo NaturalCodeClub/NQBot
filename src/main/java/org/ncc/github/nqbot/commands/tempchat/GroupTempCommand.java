@@ -1,4 +1,4 @@
-package org.ncc.github.nqbot.commands.pri;
+package org.ncc.github.nqbot.commands.tempchat;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.NormalMember;

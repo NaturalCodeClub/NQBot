@@ -7,8 +7,8 @@ import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import net.mamoe.mirai.message.data.MessageChain;
 import org.bukkit.Bukkit;
 import org.ncc.github.nqbot.commands.group.GroupCommand;
-import org.ncc.github.nqbot.commands.pri.GroupTempCommand;
-import org.ncc.github.nqbot.commands.pri.PrivateCommand;
+import org.ncc.github.nqbot.commands.tempchat.GroupTempCommand;
+import org.ncc.github.nqbot.commands.friend.FriendCommand;
 import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.manager.CommandManager;
 import org.ncc.github.nqbot.manager.ConfigManager;
@@ -48,22 +48,23 @@ public class CommandProcessor {
             if (currentListener.get()!=event.getBot()){
                 return;
             }
-            fireGroupProcessMessage(event);
+            fireGroupCommandProcess(event);
         });
     }
 
     public static void processPrivateCommandAsync(FriendMessageEvent event){
-        processor.execute(()-> firePrivateProcessMessage(event));
+        processor.execute(()-> fireFiendCommandProcess(event));
     }
+
     public static void processGroupTempCommandAsync(GroupTempMessageEvent event){
-        processor.execute(()->fireGroupTempProcessMessage(event));
+        processor.execute(()-> fireGroupTempChatMessageProcess(event));
     }
 
     /**
      * 事件会在这里判断是不是命令并进一步处理
      * @param event
      */
-    private static void fireGroupProcessMessage(GroupMessageEvent event){
+    private static void fireGroupCommandProcess(GroupMessageEvent event){
         final MessageChain message = event.getMessage();
         final String messageString = message.get(1).contentToString();
 
@@ -74,16 +75,16 @@ public class CommandProcessor {
             System.arraycopy(fixed, 1, args, 0, fixed.length - 1);
             if (commandHead.startsWith("#") && commandHead.length() > 1){
                 for (GroupCommand groupCommand : CommandManager.REGISTED_GROUP_COMMANDS){
-                    checkAndCallGrouply(groupCommand,commandHead,event,args);
+                    checkAndCallGroupCommand(groupCommand,commandHead,event,args);
                 }
                 for (GroupCommand jsGroupCommand : JavaScriptGroupCommandLoader.getRegistedJSCommands()){
-                    checkAndCallGrouply(jsGroupCommand,commandHead,event,args);
+                    checkAndCallGroupCommand(jsGroupCommand,commandHead,event,args);
                 }
             }
         }
     }
 
-    private static void firePrivateProcessMessage(FriendMessageEvent event){
+    private static void fireFiendCommandProcess(FriendMessageEvent event){
         final MessageChain message = event.getMessage();
         final String messageString = message.get(1).contentToString();
 
@@ -93,13 +94,14 @@ public class CommandProcessor {
             final String[] args = new String[fixed.length-1];
             System.arraycopy(fixed, 1, args, 0, fixed.length - 1);
             if (commandHead.startsWith("#") && commandHead.length() > 1){
-                for (PrivateCommand privateCommand : CommandManager.REGISTED_PRIVATE_COMMANDS){
-                    checkAndCall(privateCommand,commandHead,event,args);
+                for (FriendCommand friendCommand : CommandManager.REGISTED_FRIEND_COMMANDS){
+                    checkAndCall(friendCommand,commandHead,event,args);
                 }
             }
         }
     }
-    private static void fireGroupTempProcessMessage(GroupTempMessageEvent event){
+
+    private static void fireGroupTempChatMessageProcess(GroupTempMessageEvent event){
         final MessageChain messages = event.getMessage();
         final String messageString = messages.get(1).contentToString();
 
@@ -110,7 +112,7 @@ public class CommandProcessor {
             System.arraycopy(fixed,1,args,0,fixed.length - 1);
             if(commandHead.startsWith("#") && commandHead.length()>1){
                 for(GroupTempCommand g: CommandManager.REGISTED_GROUP_TEMP_COMMANDS){
-                    checkAndCallGroupTemp(g,commandHead,event,args);
+                    checkAndCallGroupTempCommand(g,commandHead,event,args);
                 }
             }
         }
@@ -119,16 +121,16 @@ public class CommandProcessor {
 
     /**
      * 检查并调用指定的命令
-     * @param privateCommand 命令的实例
+     * @param friendCommand 命令的实例
      * @param commandHead 命令头，用于检索
      * @param event 当前好友事件
      * @param args 后缀
      */
-    private static void checkAndCall(PrivateCommand privateCommand, String commandHead, FriendMessageEvent event, String[] args){
-        if (privateCommand.getHead().equalsIgnoreCase(commandHead.substring(1))){
-            logger.info(String.format("Command caught:%s Args:%s", privateCommand.getHead(), Arrays.toString(args)));
+    private static void checkAndCall(FriendCommand friendCommand, String commandHead, FriendMessageEvent event, String[] args){
+        if (friendCommand.getHead().equalsIgnoreCase(commandHead.substring(1))){
+            logger.info(String.format("Command caught:%s Args:%s", friendCommand.getHead(), Arrays.toString(args)));
             try{
-                privateCommand.process(args,event.getBot(),event.getSender(),event);
+                friendCommand.process(args,event.getBot(),event.getSender(),event);
             }catch (Exception e){
                 logger.log(Level.SEVERE,"Error in processing Message!");
                 logger.log(Level.SEVERE,e.getMessage());
@@ -145,7 +147,7 @@ public class CommandProcessor {
      * @param event 当前群事件
      * @param args 后缀
      */
-    private static void checkAndCallGrouply(GroupCommand groupCommand, String commandHead, GroupMessageEvent event, String[] args){
+    private static void checkAndCallGroupCommand(GroupCommand groupCommand, String commandHead, GroupMessageEvent event, String[] args){
         if (groupCommand.getHead().equalsIgnoreCase(commandHead.substring(1)) && event.getGroup().getId() == ConfigManager.CONFIG_FILE_READ.getListeningGroup()){
             logger.info(String.format("Command caught:%s Args:%s", groupCommand.getHead(), Arrays.toString(args)));
             try{
@@ -158,6 +160,7 @@ public class CommandProcessor {
             }
         }
     }
+
     /**
     * 检查并调用指定的指令
     * @param g 命令的实例
@@ -165,7 +168,7 @@ public class CommandProcessor {
      * @param event 临时会话事件
      * @param args 后缀
     */
-    private static void checkAndCallGroupTemp(GroupTempCommand g,String commandHead,GroupTempMessageEvent event,String[] args){
+    private static void checkAndCallGroupTempCommand(GroupTempCommand g, String commandHead, GroupTempMessageEvent event, String[] args){
         if(g.getHead().equalsIgnoreCase(commandHead.substring(1))&&event.getGroup().getId() == ConfigManager.CONFIG_FILE_READ.getListeningGroup()){
             logger.info(String.format("Command caught:%s Args:%s",g.getHead(),Arrays.toString(args)));
             try{
@@ -178,6 +181,5 @@ public class CommandProcessor {
                 event.getSender().sendMessage(e.getMessage());
             }
         }
-
     }
 }

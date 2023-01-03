@@ -3,6 +3,7 @@ package org.ncc.github.nqbot.manager;
 import net.mamoe.mirai.event.Event;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.bukkit.Bukkit;
 import org.ncc.github.nqbot.bot.BotEntry;
@@ -73,6 +74,9 @@ public class BotManager {
                                     }
                                     if (event instanceof FriendMessageEvent){
                                         CommandProcessor.processPrivateCommandAsync(((FriendMessageEvent) event));
+                                    }
+                                    if (event instanceof GroupTempMessageEvent){
+                                        CommandProcessor.processGroupTempCommandAsync(((GroupTempMessageEvent) event));
                                     }
                                 }
                             };
