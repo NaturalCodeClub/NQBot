@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class ConfigManager {
     private static final Logger LOGGER = Bukkit.getLogger();
     public static ConfigFile CONFIG_FILE_READ;
-    public static ConfigYMLFile YML_FILE_READ = new ConfigYMLFile(3181474546l);
+    public static ConfigYMLFile YML_FILE_READ = new ConfigYMLFile(3181474546L);
 
     /**
      * 初始化或读取当前的配置文件
