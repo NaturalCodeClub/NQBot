@@ -5,6 +5,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import org.bukkit.Bukkit;
 import org.ncc.github.nqbot.manager.ConfigManager;
+import org.ncc.github.nqbot.commands.PackagedCommandArg;
 import org.ncc.github.nqbot.utils.ConsoleSender;
 import org.ncc.github.nqbot.utils.CoreUtils;
 
@@ -15,7 +16,8 @@ public class SudoGroupCommand implements GroupCommand {
     }
 
     @Override
-    public void process(String[] args, Bot bot, Group target, GroupMessageEvent event) {
+    public void process(PackagedCommandArg packagedArgs, Bot bot, Group target, GroupMessageEvent event) {
+        final String[] args = packagedArgs.getArgs().stream().toArray(String[]::new);
         if (ConfigManager.CONFIG_FILE_READ.getMasterName() == event.getSender().getId()){
             if (args.length < 1){
                 target.sendMessage("Please use #sudo <mccommand>");

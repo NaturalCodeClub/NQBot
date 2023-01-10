@@ -3,7 +3,7 @@ package org.ncc.github.nqbot.commands.group;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
-
+import org.ncc.github.nqbot.commands.PackagedCommandArg;
 import javax.script.Invocable;
 import javax.script.ScriptException;
 
@@ -27,7 +27,7 @@ public class JavaScriptGroupCommand implements GroupCommand {
     }
 
     @Override
-    public void process(String[] args, Bot bot, Group target, GroupMessageEvent event) {
+    public void process(PackagedCommandArg args, Bot bot, Group target, GroupMessageEvent event) {
         try {
             this.script.invokeFunction("process",new Object[]{args,bot,target,event});
         } catch (ScriptException | NoSuchMethodException e) {

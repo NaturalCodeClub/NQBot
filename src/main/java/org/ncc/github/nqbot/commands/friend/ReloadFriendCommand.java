@@ -5,6 +5,7 @@ import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.manager.ConfigManager;
+import org.ncc.github.nqbot.commands.PackagedCommandArg;
 
 public class ReloadFriendCommand implements FriendCommand{
     @Override
@@ -13,7 +14,7 @@ public class ReloadFriendCommand implements FriendCommand{
     }
 
     @Override
-    public void process(String[] args, Bot bot, Friend target, FriendMessageEvent event) {
+    public void process(PackagedCommandArg args, Bot bot, Friend target, FriendMessageEvent event) {
         if (event.getSender().getId() == ConfigManager.CONFIG_FILE_READ.getMasterName()){
             JavaScriptGroupCommandLoader.reload();
         }
