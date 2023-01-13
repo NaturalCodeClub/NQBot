@@ -1,6 +1,7 @@
 package org.ncc.github.nqbot.manager;
 
 import org.bukkit.Bukkit;
+import org.ncc.github.nqbot.data.BindFile;
 import org.ncc.github.nqbot.data.ConfigFile;
 import org.ncc.github.nqbot.data.ConfigYMLFile;
 import org.ncc.github.nqbot.utils.CoreUtils;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
 public class ConfigManager {
     private static final Logger LOGGER = Bukkit.getLogger();
     public static ConfigFile CONFIG_FILE_READ;
+    //todo complete it
+    public static BindFile BIND_FILE_READ = new BindFile(System.currentTimeMillis());
     public static ConfigYMLFile YML_FILE_READ = new ConfigYMLFile(3181474546L);
 
     /**

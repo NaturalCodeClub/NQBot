@@ -9,25 +9,19 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ConfigYMLFile {
+public class BindFile {
     private static final Logger logger = Bukkit.getLogger();
-    private FileConfiguration configYML = null;
-    private long BotMasterID;
-
-    public ConfigYMLFile(long botMasterID){
-        this.BotMasterID = botMasterID;
+    private FileConfiguration BindFile;
+    private static long l;
+    public BindFile(long timestamp){
+        l = timestamp;
     }
-    /**
-     * @return 返回配置文件中设置的机器人主人
-     * */
-    public long getBotMasterID(){
-        return BotMasterID;
+    //todo make it ok
+    public String getName(long id){
+        return "";
     }
-    /**
-     * @return 返回configYML
-     * */
-    public FileConfiguration getConfig(){
-        return configYML;
+    public long getID(String name){
+        return 1;
     }
     /**
      * 写入到文件
@@ -36,32 +30,27 @@ public class ConfigYMLFile {
     public void writeToFile(File file){
         if(!file.exists()){
             if(!file.isFile()){
-                logger.log(Level.SEVERE,"Error in ConfigYMLFile.java");
+                logger.log(Level.SEVERE,"Error in BindFile.java");
             }else{
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
-                    logger.log(Level.SEVERE,"Error in creating config.yml");
+                    logger.log(Level.SEVERE,"Error in creating bind.yml");
                     logger.log(Level.SEVERE,e.getMessage());
                 }
             }
         }
-        configYML = YamlConfiguration.loadConfiguration(file);
-        boolean b1 = configYML.getInt("configVersion")!=1;
-        boolean b = configYML.get("config.botmaster")==null;
+        BindFile = YamlConfiguration.loadConfiguration(file);
+        boolean b = BindFile.get("createTime")==null;
         if(b){
-            configYML.set("config.botmaster",BotMasterID);
-        }
-        if(b1){
-            configYML.set("configVersion",1);
+            BindFile.set("createTime",l);
         }
         try {
-            configYML.save(file);
+            BindFile.save(file);
         } catch (IOException e) {
             logger.log(Level.SEVERE,"Error in add config to config.yml");
             logger.log(Level.SEVERE,e.getMessage());
         }
 
     }
-
 }
