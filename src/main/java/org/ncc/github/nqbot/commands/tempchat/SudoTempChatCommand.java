@@ -5,7 +5,7 @@ import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import org.bukkit.Bukkit;
 import org.ncc.github.nqbot.manager.ConfigManager;
-import org.ncc.github.nqbot.commands.PackagedCommandArg;
+import org.ncc.github.nqbot.commands.PackagedCommandInfo;
 import org.ncc.github.nqbot.utils.ConsoleSender;
 import org.ncc.github.nqbot.utils.CoreUtils;
 
@@ -16,7 +16,7 @@ public class SudoTempChatCommand implements GroupTempCommand{
     }
 
     @Override
-    public void process(PackagedCommandArg packagedArgs, Bot bot, NormalMember target, GroupTempMessageEvent event) {
+    public void process(PackagedCommandInfo packagedArgs, Bot bot, NormalMember target, GroupTempMessageEvent event) {
         final String[] args = packagedArgs.getArgs().stream().toArray(String[]::new);
         if (ConfigManager.CONFIG_FILE_READ.getMasterName() == event.getSender().getId()){
             if (args.length < 1){

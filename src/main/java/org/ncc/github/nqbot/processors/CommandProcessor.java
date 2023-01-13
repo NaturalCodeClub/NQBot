@@ -5,7 +5,7 @@ import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import org.bukkit.Bukkit;
-import org.ncc.github.nqbot.commands.PackagedCommandArg;
+import org.ncc.github.nqbot.commands.PackagedCommandInfo;
 import org.ncc.github.nqbot.commands.friend.FriendCommand;
 import org.ncc.github.nqbot.commands.group.GroupCommand;
 import org.ncc.github.nqbot.commands.tempchat.GroupTempCommand;
@@ -68,7 +68,7 @@ public class CommandProcessor {
      * @param event
      */
     private static void fireGroupCommandProcess(GroupMessageEvent event) {
-        final PackagedCommandArg newArg = new PackagedCommandArg(event.getMessage());
+        final PackagedCommandInfo newArg = new PackagedCommandInfo(event.getMessage());
         final String commandHead = newArg.getCommandHead();
         for (GroupCommand command : CommandManager.REGISTED_GROUP_COMMANDS) {
             checkAndCallGroupCommand(command, commandHead, event, newArg);
@@ -79,7 +79,7 @@ public class CommandProcessor {
     }
 
     private static void fireFiendCommandProcess(FriendMessageEvent event) {
-        final PackagedCommandArg newArg = new PackagedCommandArg(event.getMessage());
+        final PackagedCommandInfo newArg = new PackagedCommandInfo(event.getMessage());
         final String commandHead = newArg.getCommandHead();
         for (FriendCommand command : CommandManager.REGISTED_FRIEND_COMMANDS) {
             checkAndCall(command, commandHead, event, newArg);
@@ -87,7 +87,7 @@ public class CommandProcessor {
     }
 
     private static void fireGroupTempChatMessageProcess(GroupTempMessageEvent event) {
-        final PackagedCommandArg newArg = new PackagedCommandArg(event.getMessage());
+        final PackagedCommandInfo newArg = new PackagedCommandInfo(event.getMessage());
         final String commandHead = newArg.getCommandHead();
         for (GroupTempCommand command : CommandManager.REGISTED_GROUP_TEMP_COMMANDS) {
             checkAndCallGroupTempCommand(command, commandHead, event, newArg);
@@ -102,7 +102,7 @@ public class CommandProcessor {
      * @param event         当前好友事件
      * @param args          后缀
      */
-    private static void checkAndCall(FriendCommand friendCommand, String commandHead, FriendMessageEvent event, PackagedCommandArg args) {
+    private static void checkAndCall(FriendCommand friendCommand, String commandHead, FriendMessageEvent event, PackagedCommandInfo args) {
         if (friendCommand.getHead().equalsIgnoreCase(commandHead.substring(1))) {
             logger.info(String.format("Command caught:%s Args:%s", friendCommand.getHead(), args.toString()));
             try {
@@ -124,7 +124,7 @@ public class CommandProcessor {
      * @param event        当前群事件
      * @param args         后缀
      */
-    private static void checkAndCallGroupCommand(GroupCommand groupCommand, String commandHead, GroupMessageEvent event, PackagedCommandArg args) {
+    private static void checkAndCallGroupCommand(GroupCommand groupCommand, String commandHead, GroupMessageEvent event, PackagedCommandInfo args) {
         if (groupCommand.getHead().equalsIgnoreCase(commandHead.substring(1)) && event.getGroup().getId() == ConfigManager.CONFIG_FILE_READ.getListeningGroup()) {
             logger.info(String.format("Command caught:%s Args:%s", groupCommand.getHead(), args.toString()));
             try {
@@ -146,7 +146,7 @@ public class CommandProcessor {
      * @param event       临时会话事件
      * @param args        后缀
      */
-    private static void checkAndCallGroupTempCommand(GroupTempCommand g, String commandHead, GroupTempMessageEvent event, PackagedCommandArg args) {
+    private static void checkAndCallGroupTempCommand(GroupTempCommand g, String commandHead, GroupTempMessageEvent event, PackagedCommandInfo args) {
         if (g.getHead().equalsIgnoreCase(commandHead.substring(1)) && event.getGroup().getId() == ConfigManager.CONFIG_FILE_READ.getListeningGroup()) {
             logger.info(String.format("Command caught:%s Args:%s", g.getHead(), args.toString()));
             try {

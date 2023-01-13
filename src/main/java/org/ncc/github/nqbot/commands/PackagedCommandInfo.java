@@ -3,15 +3,16 @@ package org.ncc.github.nqbot.commands;
 import net.mamoe.mirai.message.data.*;
 import java.util.*;
 
-public class PackagedCommandArg {
+public class PackagedCommandInfo {
     private String commandHead;
     private final List<String> args = new ArrayList<>();
     private final Map<Class<? extends Message>,List<Message>> otherArgs = new HashMap<>();
 
-    public PackagedCommandArg(MessageChain chain){
-        for (int i = chain.size() - 1; i >= 0; i--) {
-            final Message singleMessage = chain.get(i);
-            if (singleMessage instanceof PlainText) {
+    public PackagedCommandInfo(MessageChain chain){
+        int textCounter = 0;
+        for (Message singleMessage : chain) {
+            if ((singleMessage instanceof PlainText) && textCounter == 0) {
+                textCounter++;
                 final String[][] deserialized = tryDeserializeHead(singleMessage.contentToString());
                 if (deserialized != null) {
                     this.commandHead = deserialized[0][0];
@@ -62,6 +63,6 @@ public class PackagedCommandArg {
 
     @Override
     public String toString(){
-        return String.format("@PackagedCommandArg[head=%s,str_arg=%s,other_args=%s]",this.commandHead,this.args,this.otherArgs);
+        return String.format("@PackagedCommandInfo[head=%s,str_arg=%s,other_args=%s]",this.commandHead,this.args,this.otherArgs);
     }
 }
