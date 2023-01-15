@@ -3,9 +3,9 @@ package org.ncc.github.nqbot.commands.tempchat;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
+import org.ncc.github.nqbot.commands.PackagedCommandInfo;
 import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.manager.ConfigManager;
-import org.ncc.github.nqbot.commands.PackagedCommandInfo;
 
 public class ReloadTempChatCommand implements GroupTempCommand{
     @Override

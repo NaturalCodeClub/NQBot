@@ -4,6 +4,7 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import org.ncc.github.nqbot.commands.PackagedCommandInfo;
+
 import javax.script.Invocable;
 import javax.script.ScriptException;
 

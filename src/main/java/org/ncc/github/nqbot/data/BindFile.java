@@ -6,22 +6,32 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BindFile {
     private static final Logger logger = Bukkit.getLogger();
     private FileConfiguration BindFile;
+    public static Map<Long,String> bindData = new HashMap<>();
+    public static Map<Long,String> tempMap = new HashMap<>();
     private static long l;
     public BindFile(long timestamp){
         l = timestamp;
     }
-    //todo make it ok
     public String getName(long id){
-        return "";
+        return bindData.get(id);
     }
     public long getID(String name){
-        return 1;
+        Long l = null;
+        for (Long l1 : bindData.keySet()){
+            if(bindData.get(l1).equals(name)){
+                l = l1;
+                break;
+            }
+        }
+        return l;
     }
     /**
      * 写入到文件

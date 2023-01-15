@@ -4,8 +4,8 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import org.bukkit.Bukkit;
-import org.ncc.github.nqbot.manager.ConfigManager;
 import org.ncc.github.nqbot.commands.PackagedCommandInfo;
+import org.ncc.github.nqbot.manager.ConfigManager;
 import org.ncc.github.nqbot.utils.ConsoleSender;
 import org.ncc.github.nqbot.utils.CoreUtils;
 

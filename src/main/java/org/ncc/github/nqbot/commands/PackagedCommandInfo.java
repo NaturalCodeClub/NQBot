@@ -1,6 +1,9 @@
 package org.ncc.github.nqbot.commands;
 
-import net.mamoe.mirai.message.data.*;
+import net.mamoe.mirai.message.data.Message;
+import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
+
 import java.util.*;
 
 public class PackagedCommandInfo {

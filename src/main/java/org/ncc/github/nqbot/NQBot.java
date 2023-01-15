@@ -1,5 +1,6 @@
 package org.ncc.github.nqbot;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ncc.github.nqbot.jssupport.JavaScriptGroupCommandLoader;
 import org.ncc.github.nqbot.manager.BotDataManager;
@@ -31,5 +32,8 @@ public final class NQBot extends JavaPlugin {
         BotDataManager.saveCurrent();
         BotManager.shutdown();
         JavaScriptGroupCommandLoader.unloadAllCommands();
+    }
+    public static Plugin getPlugin(){
+        return this;
     }
 }
