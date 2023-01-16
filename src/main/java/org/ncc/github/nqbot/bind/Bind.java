@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
-public class bind {
+public class Bind {
     public static String handle(Long id , String askingName, String playerName){
         Player player = Bukkit.getPlayer(playerName);
         if(!player.isOnline()){

@@ -5,4 +5,12 @@ api-version: 1.19
 
 commands:
   bind:
+    aliases:
+      - "bind"
+      - "bd"
+    usage: "/bind [confirm/lookup] [QQID(confirm or lookup), PlayerName(lookup)]"
 
+permissions:
+  bind.lookup:
+    default: op
+    description: "lookup the bind-status between QQID and Player"

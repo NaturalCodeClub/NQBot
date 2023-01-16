@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  */
 public class ConfigManager {
     private static final Logger LOGGER = Bukkit.getLogger();
+    public static File bindData = new File(CoreUtils.getDataFolder(),"bind.yml");
     public static ConfigFile CONFIG_FILE_READ;
     //todo complete it
     public static BindFile BIND_FILE_READ = new BindFile(System.currentTimeMillis());
@@ -26,6 +27,7 @@ public class ConfigManager {
         LOGGER.info("Reading config...");
         final File configs = new File(CoreUtils.getDataFolder(),"configs");
         final File configYML = new File(CoreUtils.getDataFolder(),"config.yml");
+        final File bindData = new File(CoreUtils.getDataFolder(),"bind.yml");
 
         if (configs.exists() && configs.isDirectory()){
             CONFIG_FILE_READ = ConfigFile.readFromFile(configs,"groupconfig.json");
@@ -37,6 +39,7 @@ public class ConfigManager {
             CONFIG_FILE_READ = configFile;
         }
         YML_FILE_READ.writeToFile(configYML);
+        //BIND_FILE_READ.writeToFile(bindData);
         LOGGER.info("Config init successful!");
     }
 }

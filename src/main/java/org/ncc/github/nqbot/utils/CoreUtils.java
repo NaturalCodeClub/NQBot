@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 一些常用方法
@@ -792,5 +794,10 @@ public class CoreUtils {
      */
     public static Plugin getPlugin() {
         return pluginEntry;
+    }
+    public static boolean isNumberString(String s){
+        Pattern p = Pattern.compile("[0-9]*");
+        Matcher isNum = p.matcher(s);
+        return isNum.matches();
     }
 }
