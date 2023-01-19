@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.ncc.github.nqbot.data.BindFile;
 import org.ncc.github.nqbot.utils.CoreUtils;
 
 import static org.ncc.github.nqbot.data.BindFile.bindData;
@@ -26,7 +25,6 @@ public class CommandBind implements CommandExecutor {
                             if(tempMap.get(l).equals(sender.getName())&&CoreUtils.isNumberString(id)&&l==Long.parseLong(id)){
                                 bindData.put(Long.parseLong(id),sender.getName());
                                 tempMap.remove(l);
-                                BindFile.BindFile.set("data.bind",bindData);
                                 //ConfigManager.BIND_FILE_READ.saveData(BindFile.BindFile,ConfigManager.bindData);
                                 sender.sendMessage("绑定成功");
                             }else{

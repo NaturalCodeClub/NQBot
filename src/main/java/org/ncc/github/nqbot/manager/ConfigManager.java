@@ -14,10 +14,9 @@ import java.util.logging.Logger;
  */
 public class ConfigManager {
     private static final Logger LOGGER = Bukkit.getLogger();
-    public static File bindData = new File(CoreUtils.getDataFolder(),"bind.yml");
     public static ConfigFile CONFIG_FILE_READ;
+    public static BindFile BIND_FILE_READ;
     //todo complete it
-    public static BindFile BIND_FILE_READ = new BindFile(System.currentTimeMillis());
     public static ConfigYMLFile YML_FILE_READ = new ConfigYMLFile(3181474546L);
 
     /**
@@ -27,7 +26,8 @@ public class ConfigManager {
         LOGGER.info("Reading config...");
         final File configs = new File(CoreUtils.getDataFolder(),"configs");
         final File configYML = new File(CoreUtils.getDataFolder(),"config.yml");
-        final File bindData = new File(CoreUtils.getDataFolder(),"bind.yml");
+        final File bind = new File(CoreUtils.getDataFolder(),"bind.json");
+
 
         if (configs.exists() && configs.isDirectory()){
             CONFIG_FILE_READ = ConfigFile.readFromFile(configs,"groupconfig.json");
@@ -38,8 +38,16 @@ public class ConfigManager {
             configFile.writeToFile(configs,"groupconfig.json");
             CONFIG_FILE_READ = configFile;
         }
+        if(bind.exists()&& bind.isFile()){
+            BIND_FILE_READ.readFromFile(bind);
+        }
+        if(!bind.exists()){
+            LOGGER.info("Bind File is not found! Now creating one..");
+            BindFile b = new BindFile();
+            b.writeToFile(bind);
+            BIND_FILE_READ = b;
+        }
         YML_FILE_READ.writeToFile(configYML);
-        //BIND_FILE_READ.writeToFile(bindData);
         LOGGER.info("Config init successful!");
     }
 }

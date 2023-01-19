@@ -2,6 +2,7 @@ package org.ncc.github.nqbot.manager;
 
 import com.google.gson.Gson;
 import org.bukkit.Bukkit;
+import org.ncc.github.nqbot.data.BindFile;
 import org.ncc.github.nqbot.data.BotData;
 import org.ncc.github.nqbot.utils.CoreUtils;
 
@@ -44,11 +45,16 @@ public class BotDataManager {
     public static void saveCurrent() {
         try {
             File dataFile = new File(CoreUtils.getDataFolder(),"botdata.json");
+            File bindFile = new File(CoreUtils.getDataFolder(),"bind.json");
             dataFile.delete();
             FileOutputStream fileOutputStream = new FileOutputStream(dataFile);
+            FileOutputStream fileOutputStream1 = new FileOutputStream(bindFile);
             fileOutputStream.write(gson.toJson(currentData).getBytes(StandardCharsets.UTF_8));
+            fileOutputStream1.write(gson.toJson(BindFile.bindData).getBytes(StandardCharsets.UTF_8));
             fileOutputStream.flush();
             fileOutputStream.close();
+            fileOutputStream1.flush();
+            fileOutputStream1.close();
         } catch (Exception e) {
             logger.log(Level.SEVERE,"Error in saving bot data",e);
             e.printStackTrace();

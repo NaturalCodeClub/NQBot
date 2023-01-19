@@ -16,7 +16,7 @@ public class VersionGroupCommand implements GroupCommand{
     @Override
     public void process(PackagedCommandInfo args, Bot bot, Group target, GroupMessageEvent event) {
         final String name = event.getSenderName();
-        final String message = "Hi!" + name + "\nServer Version:" + Bukkit.getVersion() + "\nNQBot Version" + InfoUtils.version;
+        final String message = "Hi! " + name + "\nServer Version:" + Bukkit.getVersion() + "\nNQBot Version:" + InfoUtils.version;
         event.getGroup().sendMessage(message);
     }
 }
