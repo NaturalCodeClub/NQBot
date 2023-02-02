@@ -17,9 +17,9 @@ public class CommandBind implements CommandExecutor {
         if(args.length!=3){
             return false;
         }else{
-            String id = args[2];
             switch (args[1].toLowerCase()){
                 case "confirm":{
+                    String id = args[2];
                     Bukkit.getScheduler().runTaskAsynchronously(CoreUtils.getPlugin(),()->{
                         for (Long l : tempMap.keySet()){
                             if(tempMap.get(l).equals(sender.getName())&&CoreUtils.isNumberString(id)&&l==Long.parseLong(id)){
@@ -35,10 +35,27 @@ public class CommandBind implements CommandExecutor {
                     return true;
                 }
                 case "lookup":{
-                    return true;
+                    String value = args[2];
+                    if(!sender.hasPermission("bind.lookup")){
+                        sender.sendMessage("你没有权限");
+                        return true;
+                    }
+                    if(CoreUtils.isNumberString(value)){
+                        if(bindData.get(Long.parseLong(value)).isEmpty()) sender.sendMessage("您查询的QQ号并没有绑定玩家");
+                        else sender.sendMessage("该QQ号与 " + bindData.get(Long.parseLong(value)) + " 绑定");
+                        return true;
+                    }else{
+                        for(Long l : bindData.keySet()){
+                            if(bindData.get(l).equals(value)){
+                                sender.sendMessage("该玩家与 " + bindData.get(l) + " 绑定");
+                                return true;
+                            }
+                        }
+                        sender.sendMessage("该玩家没与任何QQ号绑定");
+                    }
                 }
             }
         }
-        return false;
+        return true;
     }
 }
